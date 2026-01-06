@@ -1,0 +1,321 @@
+# Schedule 1 Modding Rules
+
+This repository contains reference materials for developing mods for the Unity game **Schedule 1**. It provides decompiled symbols, type definitions, and the S1API modding framework for AI-assisted mod development.
+
+---
+
+## Repository Structure
+
+### `refs/` — Reference Materials (Read-Only)
+
+The `refs/` directory contains generated reference files. **Never modify these files directly.**
+
+#### `refs/game/`
+- IL2CPP dump from the main game assembly via Il2CppDumper
+- One `.cs` file per type, organized by namespace
+- Contains **signatures only** (method bodies are empty stubs)
+- Use for: Harmony patches, native game API calls, verifying S1API internals
+
+#### `refs/s1api/`
+- Decompiled sources from Thunderstore S1API releases
+- `raw/` — Original DLLs for version tracking
+- `decompiled/` — Full C# sources with real implementation logic
+- Primary assemblies:
+  - `S1API.Il2Cpp.MelonLoader` — IL2CPP runtime version (most mods use this)
+  - `S1API.Mono.MelonLoader` — Mono runtime version
+  - `S1APILoader.MelonLoader` — Loader plugin
+
+#### `refs/deps/`
+- Supporting libraries (Harmony, etc.) for reference
+
+#### `refs/index.json`
+- Unified symbol index merging game and S1API symbols
+- Schema per entry: `{ corpus, namespace, name, kind, file, start_line, end_line }`
+- Use for fast symbol lookup and validation
+
+---
+
+## Development Guidelines
+
+### Prefer S1API Over Native Game APIs
+
+When writing mods, always check if S1API provides a wrapper before using native game types:
+
+```csharp
+// ✅ Preferred: Use S1API wrapper
+using S1API.Items;
+ItemDefinition item = ItemRegistry.GetItem("weed_og_kush");
+
+// ❌ Avoid: Direct game API (unless S1API doesn't cover it)
+using Il2CppScheduleOne.ItemFramework;
+ItemDefinition nativeItem = Registry.GetItem("weed_og_kush");
+```
+
+S1API provides cleaner abstractions for:
+- NPCs and entities (`S1API.Entities`)
+- Items and inventory (`S1API.Items`)
+- Economy and contracts (`S1API.Economy`)
+- Map locations and buildings (`S1API.Map`)
+- Quests and dialogues (`S1API.Quests`, `S1API.Dialogues`)
+- Game time and lifecycle (`S1API.GameTime`, `S1API.Lifecycle`)
+- Phone apps and messaging (`S1API.PhoneApp`, `S1API.Messaging`)
+- Console commands (`S1API.Console`)
+
+### IL2CPP Interop Patterns
+
+When working with native game types, use Il2Cpp interop conventions:
+
+```csharp
+// Namespace prefixes for game types
+using Il2CppScheduleOne.NPCs;
+using Il2CppScheduleOne.ItemFramework;
+using Il2CppScheduleOne.Economy;
+
+// Il2Cpp array conversions
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
+string[] managed = Il2CppArrayBase<string>.op_Implicit(il2cppArray);
+Il2CppStringArray il2cpp = Il2CppStringArray.op_Implicit(managedArray);
+
+// Null checks with Unity Object
+if ((Object)(object)component != (Object)null) { ... }
+```
+
+### Harmony Patching
+
+For functionality not covered by S1API, use Harmony patches:
+
+```csharp
+using HarmonyLib;
+
+[HarmonyPatch(typeof(TargetClass), nameof(TargetClass.MethodName))]
+public static class MyPatch
+{
+    [HarmonyPrefix]
+    public static bool Prefix(TargetClass __instance)
+    {
+        // Return false to skip original method
+        return true;
+    }
+
+    [HarmonyPostfix]
+    public static void Postfix(TargetClass __instance, ref ReturnType __result)
+    {
+        // Modify result after original method
+    }
+}
+```
+
+### MelonLoader Mod Structure
+
+Mods inherit from `MelonMod`:
+
+```csharp
+using MelonLoader;
+
+public class MyMod : MelonMod
+{
+    public override void OnInitializeMelon()
+    {
+        // Called once when mod loads
+    }
+
+    public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+    {
+        if (sceneName == "Main")
+        {
+            // Game scene loaded - safe to access game systems
+        }
+    }
+
+    public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
+    {
+        // Cleanup when scene unloads
+    }
+}
+```
+
+### Creating Custom NPCs
+
+Extend `S1API.Entities.NPC` for custom characters:
+
+```csharp
+using S1API.Entities;
+using S1API.Entities.Schedule;
+
+public class MyCustomNPC : NPC
+{
+    public override bool IsPhysical => true;
+    public override bool IsDealer => false;
+
+    protected override void ConfigurePrefab(NPCPrefabBuilder builder)
+    {
+        builder
+            .WithIdentity("my_npc_id", "FirstName", "LastName", iconSprite)
+            .EnsureCustomer(data => data
+                .WithStandard(CustomerStandard.MinQuality, 0.5f)
+                .WithWeeklySpend(50, 200))
+            .WithRelationship(rel => rel
+                .WithDefaultRelation(0f)
+                .WithUnlockRequirement(UnlockType.Automatic))
+            .WithSchedule(schedule => schedule
+                .AddStayInBuilding(Building.MyHome, 0, 8)
+                .AddWalkToLocation(someLocation, 8, 12));
+    }
+}
+```
+
+### Creating Console Commands
+
+Extend `BaseConsoleCommand`:
+
+```csharp
+using S1API.Console;
+using System.Collections.Generic;
+
+public class MyCommand : BaseConsoleCommand
+{
+    public override string CommandWord => "mycommand";
+    public override string CommandDescription => "Does something useful";
+    public override string ExampleUsage => "mycommand <arg1> [arg2]";
+
+    public override void ExecuteCommand(List<string> args)
+    {
+        // Command implementation
+        ConsoleHelper.Log("Command executed!");
+    }
+}
+
+// Register in mod initialization:
+CustomConsoleRegistry.RegisterCommand<MyCommand>();
+```
+
+### Creating Custom Items
+
+```csharp
+using S1API.Items;
+
+public class MyItem : ItemDefinition
+{
+    public MyItem() : base()
+    {
+        ID = "my_custom_item";
+        Name = "Custom Item";
+        Description = "A custom item for my mod";
+        StackLimit = 10;
+        Category = ItemCategory.Consumable;
+    }
+}
+```
+
+---
+
+## Symbol Lookup Strategy
+
+### Finding Game Symbols
+
+1. Search `refs/index.json` for type names
+2. Use the `file` path to locate the full signature in `refs/game/`
+3. Check `corpus` field: `"game"` for native types, `"s1api"` for wrapper types
+
+### Finding S1API Implementations
+
+1. Check `refs/s1api/decompiled/S1API.Il2Cpp.MelonLoader/` for namespace-organized sources
+2. Look for `Internal/` subdirectories for implementation details
+3. `Patches/` contains Harmony patches S1API uses internally
+
+### Common Namespaces
+
+| Purpose | S1API Namespace | Native Namespace |
+|---------|-----------------|------------------|
+| NPCs | `S1API.Entities` | `Il2CppScheduleOne.NPCs` |
+| Items | `S1API.Items` | `Il2CppScheduleOne.ItemFramework` |
+| Economy | `S1API.Economy` | `Il2CppScheduleOne.Economy` |
+| Map | `S1API.Map` | `Il2CppScheduleOne.Map` |
+| Player | `S1API.Entities` | `Il2CppScheduleOne.PlayerScripts` |
+| Vehicles | `S1API.Vehicles` | `Il2CppScheduleOne.Vehicles` |
+| UI | `S1API.UI` | `Il2CppScheduleOne.UI` |
+| Time | `S1API.GameTime` | `Il2CppScheduleOne.GameTime` |
+| Quests | `S1API.Quests` | `Il2CppScheduleOne.Quests` |
+| Law/Police | `S1API.Law` | `Il2CppScheduleOne.Law` |
+| Products | `S1API.Products` | `Il2CppScheduleOne.Product` |
+| Growing | `S1API.Growing` | `Il2CppScheduleOne.Growing` |
+| Money | `S1API.Money` | `Il2CppScheduleOne.Money` |
+
+---
+
+## Important Considerations
+
+### IL2CPP Limitations
+
+- Method bodies in `refs/game/` are stubs — don't assume implementation details
+- Some generic types may have mangled names (e.g., `Action_of_T1_and_T2`)
+- Nested types appear as separate files with parent type prefix
+
+### Version Compatibility
+
+This repository is tied to specific versions of:
+- Schedule 1 game build
+- S1API release version
+
+Version mismatches may cause missing members or runtime errors. Always verify symbols exist in the current game version.
+
+### Networking Considerations
+
+Schedule 1 uses FishNet for multiplayer. When modifying game state:
+- Check `InstanceFinder.IsServer` before server-only operations
+- Use `NetworkBehaviour` patterns for synced state
+- NPCs require network spawning via `NetworkObject`
+
+```csharp
+using Il2CppFishNet;
+
+if (InstanceFinder.IsServer)
+{
+    // Server-only logic
+}
+```
+
+### Save System Integration
+
+For persistent mod data, implement `Saveable`:
+
+```csharp
+using S1API.Saveables;
+
+public class MySaveableData : Saveable
+{
+    protected override void OnCreated() { }
+    protected override void OnLoaded() { }
+    protected override void OnSaved() { }
+}
+```
+
+---
+
+## Code Style
+
+- Use C# 10+ features (file-scoped namespaces, pattern matching)
+- Follow Unity/MelonLoader logging conventions
+- Prefer `S1API.Logging.Log` over `MelonLogger` for S1API-based mods
+- Handle null carefully with IL2CPP types (use Unity's null check pattern)
+- Document public APIs with XML comments
+
+---
+
+## Debugging Tips
+
+- Use MelonLoader console for runtime logging
+- Check `refs/game/` for exact method signatures when patches fail
+- S1API internal patches in `refs/s1api/decompiled/.../Internal.Patches/` show working Harmony examples
+- For type resolution issues, verify the exact namespace in `refs/index.json`
+
+---
+
+## Do Not
+
+- ❌ Modify files in `refs/` — they are generated and disposable
+- ❌ Guess at API signatures — always verify against reference files
+- ❌ Use native game APIs when S1API provides a wrapper
+- ❌ Assume method implementations from stub bodies in game dumps
+- ❌ Ignore networking requirements for multiplayer-safe mods
+

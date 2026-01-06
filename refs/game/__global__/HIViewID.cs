@@ -1,0 +1,11 @@
+internal struct HIViewID // TypeDefIndex: 5888
+{
+	// Fields
+	public uint type; // 0x0
+	public uint id; // 0x4
+
+	// Methods
+
+	// RVA: 0x541AB0 Offset: 0x5404B0 VA: 0x180541AB0
+	public void .ctor(uint type, uint id) { }
+}

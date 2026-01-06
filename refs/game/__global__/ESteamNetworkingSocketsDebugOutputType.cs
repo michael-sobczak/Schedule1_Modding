@@ -1,0 +1,15 @@
+public enum ESteamNetworkingSocketsDebugOutputType // TypeDefIndex: 14683
+{
+	// Fields
+	public int value__; // 0x0
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_None = 0;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Bug = 1;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Error = 2;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Important = 3;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Warning = 4;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Msg = 5;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Verbose = 6;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Debug = 7;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType_Everything = 8;
+	public const ESteamNetworkingSocketsDebugOutputType k_ESteamNetworkingSocketsDebugOutputType__Force32Bit = 2147483647;
+}

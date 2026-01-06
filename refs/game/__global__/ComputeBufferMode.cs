@@ -1,0 +1,12 @@
+public enum ComputeBufferMode // TypeDefIndex: 11647
+{
+	// Fields
+	public int value__; // 0x0
+	public const ComputeBufferMode Immutable = 0;
+	public const ComputeBufferMode Dynamic = 1;
+	[Obsolete("ComputeBufferMode.Circular is deprecated (legacy mode)")]
+	public const ComputeBufferMode Circular = 2;
+	[Obsolete("ComputeBufferMode.StreamOut is deprecated (internal use only)")]
+	public const ComputeBufferMode StreamOut = 3;
+	public const ComputeBufferMode SubUpdates = 4;
+}

@@ -1,0 +1,9 @@
+internal enum TABITEMRIGHTEDGESTATES // TypeDefIndex: 6046
+{
+	// Fields
+	public int value__; // 0x0
+	public const TABITEMRIGHTEDGESTATES TIRES_NORMAL = 1;
+	public const TABITEMRIGHTEDGESTATES TIRES_HOT = 2;
+	public const TABITEMRIGHTEDGESTATES TIRES_SELECTED = 3;
+	public const TABITEMRIGHTEDGESTATES TIRES_DISABLED = 4;
+}

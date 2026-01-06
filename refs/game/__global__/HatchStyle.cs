@@ -1,0 +1,61 @@
+public enum HatchStyle // TypeDefIndex: 17229
+{
+	// Fields
+	public int value__; // 0x0
+	public const HatchStyle Horizontal = 0;
+	public const HatchStyle Vertical = 1;
+	public const HatchStyle ForwardDiagonal = 2;
+	public const HatchStyle BackwardDiagonal = 3;
+	public const HatchStyle Cross = 4;
+	public const HatchStyle DiagonalCross = 5;
+	public const HatchStyle Percent05 = 6;
+	public const HatchStyle Percent10 = 7;
+	public const HatchStyle Percent20 = 8;
+	public const HatchStyle Percent25 = 9;
+	public const HatchStyle Percent30 = 10;
+	public const HatchStyle Percent40 = 11;
+	public const HatchStyle Percent50 = 12;
+	public const HatchStyle Percent60 = 13;
+	public const HatchStyle Percent70 = 14;
+	public const HatchStyle Percent75 = 15;
+	public const HatchStyle Percent80 = 16;
+	public const HatchStyle Percent90 = 17;
+	public const HatchStyle LightDownwardDiagonal = 18;
+	public const HatchStyle LightUpwardDiagonal = 19;
+	public const HatchStyle DarkDownwardDiagonal = 20;
+	public const HatchStyle DarkUpwardDiagonal = 21;
+	public const HatchStyle WideDownwardDiagonal = 22;
+	public const HatchStyle WideUpwardDiagonal = 23;
+	public const HatchStyle LightVertical = 24;
+	public const HatchStyle LightHorizontal = 25;
+	public const HatchStyle NarrowVertical = 26;
+	public const HatchStyle NarrowHorizontal = 27;
+	public const HatchStyle DarkVertical = 28;
+	public const HatchStyle DarkHorizontal = 29;
+	public const HatchStyle DashedDownwardDiagonal = 30;
+	public const HatchStyle DashedUpwardDiagonal = 31;
+	public const HatchStyle DashedHorizontal = 32;
+	public const HatchStyle DashedVertical = 33;
+	public const HatchStyle SmallConfetti = 34;
+	public const HatchStyle LargeConfetti = 35;
+	public const HatchStyle ZigZag = 36;
+	public const HatchStyle Wave = 37;
+	public const HatchStyle DiagonalBrick = 38;
+	public const HatchStyle HorizontalBrick = 39;
+	public const HatchStyle Weave = 40;
+	public const HatchStyle Plaid = 41;
+	public const HatchStyle Divot = 42;
+	public const HatchStyle DottedGrid = 43;
+	public const HatchStyle DottedDiamond = 44;
+	public const HatchStyle Shingle = 45;
+	public const HatchStyle Trellis = 46;
+	public const HatchStyle Sphere = 47;
+	public const HatchStyle SmallGrid = 48;
+	public const HatchStyle SmallCheckerBoard = 49;
+	public const HatchStyle LargeCheckerBoard = 50;
+	public const HatchStyle OutlinedDiamond = 51;
+	public const HatchStyle SolidDiamond = 52;
+	public const HatchStyle LargeGrid = 4;
+	public const HatchStyle Min = 0;
+	public const HatchStyle Max = 4;
+}

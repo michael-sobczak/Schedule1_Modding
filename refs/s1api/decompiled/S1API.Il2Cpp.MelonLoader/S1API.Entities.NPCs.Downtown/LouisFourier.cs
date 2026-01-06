@@ -1,0 +1,15 @@
+using System.Collections.Generic;
+using System.Linq;
+using Il2CppScheduleOne.NPCs;
+
+namespace S1API.Entities.NPCs.Downtown;
+
+public class LouisFourier : NPC
+{
+	public new static string NPCId => "louis_fourier";
+
+	internal LouisFourier()
+		: base(((IEnumerable<NPC>)NPCManager.NPCRegistry.ToArray()).First((NPC n) => n.ID == "louis_fourier"))
+	{
+	}
+}

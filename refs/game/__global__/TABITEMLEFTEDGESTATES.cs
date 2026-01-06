@@ -1,0 +1,9 @@
+internal enum TABITEMLEFTEDGESTATES // TypeDefIndex: 6045
+{
+	// Fields
+	public int value__; // 0x0
+	public const TABITEMLEFTEDGESTATES TILES_NORMAL = 1;
+	public const TABITEMLEFTEDGESTATES TILES_HOT = 2;
+	public const TABITEMLEFTEDGESTATES TILES_SELECTED = 3;
+	public const TABITEMLEFTEDGESTATES TILES_DISABLED = 4;
+}

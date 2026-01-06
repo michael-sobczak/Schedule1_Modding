@@ -1,0 +1,9 @@
+{
+    "name": "S1API_Forked",
+    "version_number": "2.9.1",
+    "website_url": "https://github.com/ifBars/S1API",
+    "description": "S1API is an open source collaboration project to help standardize Schedule One modding processes.The goal is to provide a standard place for common functionalities so you can focus on making content versus reverse engineering the game.",
+    "dependencies": [
+        "LavaGang-MelonLoader-0.7.0"
+    ]
+}

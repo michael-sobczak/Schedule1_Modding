@@ -1,0 +1,79 @@
+using System;
+using Il2CppScheduleOne;
+using Il2CppScheduleOne.DevUtilities;
+using Il2CppScheduleOne.ItemFramework;
+using Il2CppScheduleOne.Money;
+using Il2CppSystem;
+using S1API.Internal.Utils;
+using UnityEngine;
+
+namespace S1API.Money;
+
+public static class Money
+{
+	private static MoneyManager Internal => NetworkSingleton<MoneyManager>.Instance;
+
+	public static event Action? OnBalanceChanged;
+
+	public static void ChangeCashBalance(float amount, bool visualizeChange = true, bool playCashSound = false)
+	{
+		MoneyManager obj = Internal;
+		if (obj != null)
+		{
+			obj.ChangeCashBalance(amount, visualizeChange, playCashSound);
+		}
+		Money.OnBalanceChanged?.Invoke();
+	}
+
+	public static void CreateOnlineTransaction(string transactionName, float unitAmount, float quantity, string transactionNote)
+	{
+		MoneyManager obj = Internal;
+		if (obj != null)
+		{
+			obj.CreateOnlineTransaction(transactionName, unitAmount, quantity, transactionNote);
+		}
+		Money.OnBalanceChanged?.Invoke();
+	}
+
+	public static float GetNetWorth()
+	{
+		return ((Object)(object)Internal != (Object)null) ? Internal.GetNetWorth() : 0f;
+	}
+
+	public static float GetCashBalance()
+	{
+		return ((Object)(object)Internal != (Object)null) ? Internal.cashBalance : 0f;
+	}
+
+	public static float GetOnlineBalance()
+	{
+		return ((Object)(object)Internal != (Object)null) ? Internal.sync___get_value_onlineBalance() : 0f;
+	}
+
+	public static void AddNetworthCalculation(Action<object> callback)
+	{
+		if ((Object)(object)Internal != (Object)null)
+		{
+			MoneyManager obj = Internal;
+			obj.onNetworthCalculation += Action<FloatContainer>.op_Implicit((Action<FloatContainer>)callback);
+		}
+	}
+
+	public static void RemoveNetworthCalculation(Action<object> callback)
+	{
+		if ((Object)(object)Internal != (Object)null)
+		{
+			MoneyManager obj = Internal;
+			obj.onNetworthCalculation -= Action<FloatContainer>.op_Implicit((Action<FloatContainer>)callback);
+		}
+	}
+
+	public static CashInstance CreateCashInstance(float amount)
+	{
+		CashDefinition item = Registry.GetItem<CashDefinition>("cash");
+		ItemInstance itemInstance = CrossType.As<ItemInstance>((object)((ItemDefinition)item).GetDefaultInstance(1));
+		CashInstance cashInstance = new CashInstance(itemInstance);
+		cashInstance.SetQuantity(amount);
+		return cashInstance;
+	}
+}

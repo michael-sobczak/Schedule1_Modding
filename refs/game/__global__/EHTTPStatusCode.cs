@@ -1,0 +1,51 @@
+public enum EHTTPStatusCode // TypeDefIndex: 14673
+{
+	// Fields
+	public int value__; // 0x0
+	public const EHTTPStatusCode k_EHTTPStatusCodeInvalid = 0;
+	public const EHTTPStatusCode k_EHTTPStatusCode100Continue = 100;
+	public const EHTTPStatusCode k_EHTTPStatusCode101SwitchingProtocols = 101;
+	public const EHTTPStatusCode k_EHTTPStatusCode200OK = 200;
+	public const EHTTPStatusCode k_EHTTPStatusCode201Created = 201;
+	public const EHTTPStatusCode k_EHTTPStatusCode202Accepted = 202;
+	public const EHTTPStatusCode k_EHTTPStatusCode203NonAuthoritative = 203;
+	public const EHTTPStatusCode k_EHTTPStatusCode204NoContent = 204;
+	public const EHTTPStatusCode k_EHTTPStatusCode205ResetContent = 205;
+	public const EHTTPStatusCode k_EHTTPStatusCode206PartialContent = 206;
+	public const EHTTPStatusCode k_EHTTPStatusCode300MultipleChoices = 300;
+	public const EHTTPStatusCode k_EHTTPStatusCode301MovedPermanently = 301;
+	public const EHTTPStatusCode k_EHTTPStatusCode302Found = 302;
+	public const EHTTPStatusCode k_EHTTPStatusCode303SeeOther = 303;
+	public const EHTTPStatusCode k_EHTTPStatusCode304NotModified = 304;
+	public const EHTTPStatusCode k_EHTTPStatusCode305UseProxy = 305;
+	public const EHTTPStatusCode k_EHTTPStatusCode307TemporaryRedirect = 307;
+	public const EHTTPStatusCode k_EHTTPStatusCode308PermanentRedirect = 308;
+	public const EHTTPStatusCode k_EHTTPStatusCode400BadRequest = 400;
+	public const EHTTPStatusCode k_EHTTPStatusCode401Unauthorized = 401;
+	public const EHTTPStatusCode k_EHTTPStatusCode402PaymentRequired = 402;
+	public const EHTTPStatusCode k_EHTTPStatusCode403Forbidden = 403;
+	public const EHTTPStatusCode k_EHTTPStatusCode404NotFound = 404;
+	public const EHTTPStatusCode k_EHTTPStatusCode405MethodNotAllowed = 405;
+	public const EHTTPStatusCode k_EHTTPStatusCode406NotAcceptable = 406;
+	public const EHTTPStatusCode k_EHTTPStatusCode407ProxyAuthRequired = 407;
+	public const EHTTPStatusCode k_EHTTPStatusCode408RequestTimeout = 408;
+	public const EHTTPStatusCode k_EHTTPStatusCode409Conflict = 409;
+	public const EHTTPStatusCode k_EHTTPStatusCode410Gone = 410;
+	public const EHTTPStatusCode k_EHTTPStatusCode411LengthRequired = 411;
+	public const EHTTPStatusCode k_EHTTPStatusCode412PreconditionFailed = 412;
+	public const EHTTPStatusCode k_EHTTPStatusCode413RequestEntityTooLarge = 413;
+	public const EHTTPStatusCode k_EHTTPStatusCode414RequestURITooLong = 414;
+	public const EHTTPStatusCode k_EHTTPStatusCode415UnsupportedMediaType = 415;
+	public const EHTTPStatusCode k_EHTTPStatusCode416RequestedRangeNotSatisfiable = 416;
+	public const EHTTPStatusCode k_EHTTPStatusCode417ExpectationFailed = 417;
+	public const EHTTPStatusCode k_EHTTPStatusCode4xxUnknown = 418;
+	public const EHTTPStatusCode k_EHTTPStatusCode429TooManyRequests = 429;
+	public const EHTTPStatusCode k_EHTTPStatusCode444ConnectionClosed = 444;
+	public const EHTTPStatusCode k_EHTTPStatusCode500InternalServerError = 500;
+	public const EHTTPStatusCode k_EHTTPStatusCode501NotImplemented = 501;
+	public const EHTTPStatusCode k_EHTTPStatusCode502BadGateway = 502;
+	public const EHTTPStatusCode k_EHTTPStatusCode503ServiceUnavailable = 503;
+	public const EHTTPStatusCode k_EHTTPStatusCode504GatewayTimeout = 504;
+	public const EHTTPStatusCode k_EHTTPStatusCode505HTTPVersionNotSupported = 505;
+	public const EHTTPStatusCode k_EHTTPStatusCode5xxUnknown = 599;
+}

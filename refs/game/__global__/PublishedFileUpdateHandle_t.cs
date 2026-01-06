@@ -1,0 +1,41 @@
+public struct PublishedFileUpdateHandle_t : IEquatable<PublishedFileUpdateHandle_t>, IComparable<PublishedFileUpdateHandle_t> // TypeDefIndex: 14803
+{
+	// Fields
+	public static readonly PublishedFileUpdateHandle_t Invalid; // 0x0
+	public ulong m_PublishedFileUpdateHandle; // 0x0
+
+	// Methods
+
+	// RVA: 0xC7C0C0 Offset: 0xC7AAC0 VA: 0x180C7C0C0
+	public void .ctor(ulong value) { }
+
+	// RVA: 0xC7C0D0 Offset: 0xC7AAD0 VA: 0x180C7C0D0 Slot: 3
+	public override string ToString() { }
+
+	// RVA: 0xCB0E20 Offset: 0xCAF820 VA: 0x180CB0E20 Slot: 0
+	public override bool Equals(object other) { }
+
+	// RVA: 0xC7BE00 Offset: 0xC7A800 VA: 0x180C7BE00 Slot: 2
+	public override int GetHashCode() { }
+
+	// RVA: 0xC7C1F0 Offset: 0xC7ABF0 VA: 0x180C7C1F0
+	public static bool op_Equality(PublishedFileUpdateHandle_t x, PublishedFileUpdateHandle_t y) { }
+
+	// RVA: 0xCB0F00 Offset: 0xCAF900 VA: 0x180CB0F00
+	public static bool op_Inequality(PublishedFileUpdateHandle_t x, PublishedFileUpdateHandle_t y) { }
+
+	// RVA: 0xBB7DD0 Offset: 0xBB67D0 VA: 0x180BB7DD0
+	public static PublishedFileUpdateHandle_t op_Explicit(ulong value) { }
+
+	// RVA: 0xBB7DD0 Offset: 0xBB67D0 VA: 0x180BB7DD0
+	public static ulong op_Explicit(PublishedFileUpdateHandle_t that) { }
+
+	// RVA: 0xC7BDF0 Offset: 0xC7A7F0 VA: 0x180C7BDF0 Slot: 4
+	public bool Equals(PublishedFileUpdateHandle_t other) { }
+
+	// RVA: 0xC7BD50 Offset: 0xC7A750 VA: 0x180C7BD50 Slot: 5
+	public int CompareTo(PublishedFileUpdateHandle_t other) { }
+
+	// RVA: 0xCB0EC0 Offset: 0xCAF8C0 VA: 0x180CB0EC0
+	private static void .cctor() { }
+}

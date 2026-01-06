@@ -1,0 +1,9 @@
+internal enum SCROLLBARSTYLESTATES // TypeDefIndex: 6038
+{
+	// Fields
+	public int value__; // 0x0
+	public const SCROLLBARSTYLESTATES SCRBS_NORMAL = 1;
+	public const SCROLLBARSTYLESTATES SCRBS_HOT = 2;
+	public const SCROLLBARSTYLESTATES SCRBS_PRESSED = 3;
+	public const SCROLLBARSTYLESTATES SCRBS_DISABLED = 4;
+}
